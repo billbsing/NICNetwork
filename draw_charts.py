@@ -24,7 +24,7 @@ DEFAULT_OUTPUT_FILENAME = 'nic_charts.pdf'
 def main():
 
 
-    parser = argparse.ArgumentParser(description='NIC Charting.')
+    parser = argparse.ArgumentParser(description='NIC Network')
 
     parser.add_argument('-f', '--filename',
         default=DEFAULT_FILENAME,

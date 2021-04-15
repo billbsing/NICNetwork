@@ -4,6 +4,7 @@
 *.ods
 *.xls*
 charts/
+*.pdf
 
 
 # Byte-compiled / optimized / DLL files

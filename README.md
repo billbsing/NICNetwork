@@ -29,13 +29,14 @@ You now need to setup the local virtual environment. You will only need to do th
 virtualenv venv
 ```
 
+You need to do this before each time you come back to the folder to run the charting command.
 Now make sure any new library and builds are used in the `venv` folder.
 
 ```bash
 source venv/bin/activate
 ```
 
-Now you need to instal the supported python libraries.
+Now you need to instal/update the supported python libraries.
 
 ```bash
 make install

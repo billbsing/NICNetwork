@@ -21,7 +21,7 @@ move into the new downloaded folder:
 cd NICNetwork
 ```
 
-### Seting up to run the application
+### Seting up to generate the report
 
 You now need to setup the local virtual environment. You will only need to do this part once.
 
@@ -42,7 +42,7 @@ Now you need to instal/update the supported python libraries.
 make install
 ```
 
-### Generating Reports
+### Generating the report
 
 You need to copy the spreadsheet to the `NICNetwork` folder and convert it to a CSV file.
 

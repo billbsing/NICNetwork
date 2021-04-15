@@ -57,7 +57,7 @@ Once the csv file is available you can now run the chart generator.
 
 This will produce an output pdf file called `nic_charts.pdf`.
 
-All of the source charts generated can be found in the `charts` folder.
+All of the source charts generated can be found in the `NICNetwork/charts` folder.
 
 ### Command line options
 

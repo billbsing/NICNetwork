@@ -10,7 +10,12 @@ First open a terminal session on your computer.
 
 Then download this repository.
 
-( You do not need to enter in the  **$** symbol, for all of the example code below )
+
+> Since the  **$** symbol shown in the examples below are used as a convention to show that
+you need to enter in the commands in a terminal session.
+
+> So you do not need to enter in the  **$** symbol, for all of the examples code below, just the text after the **$** symbol
+
 
 ```bash
 $ git clone https://github.com/billbsing/NICNetwork.git

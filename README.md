@@ -11,20 +11,14 @@ First open a terminal session on your computer.
 Then download this repository.
 
 
-> Since the  **$** symbol shown in the examples below are used as a convention to show that
-you need to enter in the commands in a terminal session.
-
-> So you do not need to enter in the  **$** symbol, for all of the examples code below, just the text after the **$** symbol
-
-
 ```bash
-$ git clone https://github.com/billbsing/NICNetwork.git
+git clone https://github.com/billbsing/NICNetwork.git
 ```
 
 move into the new downloaded folder:
 
 ```bash
-$ cd NICNetwork
+cd NICNetwork
 ```
 
 ### Seting up to run the application
@@ -32,19 +26,19 @@ $ cd NICNetwork
 You now need to setup the local virtual environment. You will only need to do this part once.
 
 ```bash
-$ virtualenv venv
+virtualenv venv
 ```
 
 Now make sure any new library and builds are used in the `venv` folder.
 
 ```bash
-$ source venv/bin/activate
+source venv/bin/activate
 ```
 
 Now you need to instal the supported python libraries.
 
 ```bash
-$ make install
+make install
 ```
 
 ### Generating Reports
@@ -56,7 +50,7 @@ The default filename for the input spreadsheet CSV file is `nic_data.csv`.
 Once the csv file is available you can now run the chart generator.
 
 ```bash
-$ ./draw_charts.py all
+./draw_charts.py all
 
 ```
 
@@ -69,7 +63,7 @@ All of the source charts generated can be found in the `charts` folder.
 Use the `--help` option
 
 ```bash
-$ ./draw_charts.py --help
+./draw_charts.py --help
 
     usage: draw_charts.py [-h] [-f FILENAME] [-p PATH] [-o OUTPUT] name
 

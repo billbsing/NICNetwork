@@ -41,8 +41,7 @@ def main():
         help=f'Output chart name. Default: {DEFAULT_OUTPUT_FILENAME}'
     )
     parser.add_argument('chart_names',
-        metavar='chart names',
-        nargs='+',
+        metavar='name',
         help='list of chart names can be one of the following: [all, country, sector].'
     )
 

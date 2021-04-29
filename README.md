@@ -51,7 +51,7 @@ The default filename for the input spreadsheet CSV file is `nic_data.csv`.
 Once the csv file is available you can now run the chart generator.
 
 ```bash
-./draw_charts.py all
+./draw_charts.py
 
 ```
 
@@ -66,20 +66,20 @@ Use the `--help` option
 ```bash
 ./draw_charts.py --help
 
-    usage: draw_charts.py [-h] [-f FILENAME] [-p PATH] [-o OUTPUT] name
+usage: draw_charts.py [-h] [-f FILENAME] [-p PATH] [-o OUTPUT] [name]
 
-    NIC Network
+NIC Network
 
-    positional arguments:
-    name                  list of chart names can be one of the following: [all, country, sector].
+positional arguments:
+  name                  list of chart names can be one of the following: [all, country, sector]. Default all
 
-    optional arguments:
-    -h, --help            show this help message and exit
-    -f FILENAME, --filename FILENAME
-                            Data csv filename. Default: nic_data.csv
-    -p PATH, --path PATH  Path to build the charts in. Default: charts
-    -o OUTPUT, --output OUTPUT
-                            Output chart name. Default: nic_charts.pdf
+optional arguments:
+  -h, --help            show this help message and exit
+  -f FILENAME, --filename FILENAME
+                        Data csv filename. Default: nic_data.csv
+  -p PATH, --path PATH  Path to build the charts in. Default: charts
+  -o OUTPUT, --output OUTPUT
+                        Output chart name. Default: nic_charts.pdf
 
 ```
 

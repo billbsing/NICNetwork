@@ -20,6 +20,7 @@ charts = {
 DEFAULT_FILENAME = 'nic_data.csv'
 DEFAULT_OUTPUT_PATH = 'charts'
 DEFAULT_OUTPUT_FILENAME = 'nic_charts.pdf'
+DEFAULT_CHART_NAME = 'all'
 
 def main():
 
@@ -40,9 +41,11 @@ def main():
         default=DEFAULT_OUTPUT_FILENAME,
         help=f'Output chart name. Default: {DEFAULT_OUTPUT_FILENAME}'
     )
-    parser.add_argument('chart_names',
+    parser.add_argument('chart_name',
         metavar='name',
-        help='list of chart names can be one of the following: [all, country, sector].'
+        nargs='?',
+        default=DEFAULT_CHART_NAME,
+        help=f'list of chart names can be one of the following: [all, country, sector]. Default {DEFAULT_CHART_NAME}'
     )
 
     args = parser.parse_args()
@@ -52,50 +55,41 @@ def main():
     if not os.path.exists(output_path):
         os.mkdir(output_path)
     export_list = []
-    for chart_name in args.chart_names:
-        if chart_name == 'country' or chart_name == 'all':
+    chart_name = args.chart_name.lower()
+    if chart_name == 'country' or chart_name == 'all':
+        print('drawing country charts')
+        country_charts = CountryCharts(data_source)
+        country_charts.draw_pie_chart()
+        plot.savefig(f'{output_path}/country_chart_pie.svg', bbox_inches='tight')
+        export_list.append('country_chart_pie')
+        plot.close()
 
-            country_charts = CountryCharts(data_source)
-            country_charts.draw_pie_chart()
-            plot.savefig(f'{output_path}/country_chart_pie.svg', bbox_inches='tight')
-            export_list.append('country_chart_pie')
-            plot.close()
+        country_charts.draw_bar_chart()
+        plot.savefig(f'{output_path}/country_chart_bar.svg', bbox_inches='tight')
+        export_list.append('country_chart_bar')
+        plot.close()
 
-            country_charts.draw_bar_chart()
-            plot.savefig(f'{output_path}/country_chart_bar.svg', bbox_inches='tight')
-            export_list.append('country_chart_bar')
-            plot.close()
+        country_charts.draw_world_map(f'{output_path}/country_chart_map.svg')
+        export_list.append('country_chart_map')
+        plot.close()
 
-            country_charts.draw_world_map(f'{output_path}/country_chart_map.svg')
-            export_list.append('country_chart_map')
-            plot.close()
+    if chart_name == 'sector' or chart_name == 'all':
+        print('drawring sector charts')
+        sector_charts = SectorCharts(data_source)
+        sector_charts.draw_pie_chart()
+        plot.savefig(f'{output_path}/sector_chart_pie.svg', bbox_inches='tight')
+        export_list.append('sector_chart_pie')
+        plot.close()
 
-        if chart_name == 'sector' or chart_name == 'all':
-            sector_charts = SectorCharts(data_source)
-            sector_charts.draw_pie_chart()
-            plot.savefig(f'{output_path}/sector_chart_pie.svg', bbox_inches='tight')
-            export_list.append('sector_chart_pie')
-            plot.close()
+        sector_charts.draw_bar_chart()
+        plot.savefig(f'{output_path}/sector_chart_bar.svg', bbox_inches='tight')
+        export_list.append('sector_chart_bar')
+        plot.close()
 
-            sector_charts.draw_bar_chart()
-            plot.savefig(f'{output_path}/sector_chart_bar.svg', bbox_inches='tight')
-            export_list.append('sector_chart_bar')
-            plot.close()
-
-            for sector in data_source.sectors:
-                figure = sector_charts.draw_network_chart(sector)
-                sector_name = re.sub('[^a-zA-Z0-9]+', '_', sector)
-                network_name = f'sector_chart_network_{sector_name}'.lower()
-                figure.savefig(f'{output_path}/{network_name}.svg',
-                    orientation='landscape',
-                    bbox_inches='tight',
-                    pad_inches=0.1
-                )
-                export_list.append(network_name)
-                plot.close()
-
-            figure = sector_charts.draw_network_chart()
-            network_name = 'sector_chart_network'
+        for sector in data_source.sectors:
+            figure = sector_charts.draw_network_chart(sector)
+            sector_name = re.sub('[^a-zA-Z0-9]+', '_', sector)
+            network_name = f'sector_chart_network_{sector_name}'.lower()
             figure.savefig(f'{output_path}/{network_name}.svg',
                 orientation='landscape',
                 bbox_inches='tight',
@@ -103,6 +97,16 @@ def main():
             )
             export_list.append(network_name)
             plot.close()
+
+        figure = sector_charts.draw_network_chart()
+        network_name = 'sector_chart_network'
+        figure.savefig(f'{output_path}/{network_name}.svg',
+            orientation='landscape',
+            bbox_inches='tight',
+            pad_inches=0.1
+        )
+        export_list.append(network_name)
+        plot.close()
 
     if export_list:
         pdf_inputs = []
@@ -119,6 +123,7 @@ def main():
             file_handles.append(fp)
             merger.append(fp)
         with open(args.output, 'wb') as fp:
+            print(f'output chart to {args.output}')
             merger.write(fp)
 
         for fp in file_handles:

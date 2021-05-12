@@ -76,7 +76,8 @@ class SectorCharts:
         ax.set_xlabel('Number of people')
         ax.set_ylabel('Sector')
         ax.set_title('Number of people grouped by sector')
-        ax.bar_label(barh)
+        if hasattr(ax, 'bar_label'):
+            ax.bar_label(barh)
 
 
 

@@ -21,7 +21,24 @@ move into the new downloaded folder:
 cd NICNetwork
 ```
 
-### Seting up to generate the report
+### Generate the report using Docker ( simplest/easiest)
+
+1. First you need to install and have Docker running on your computer.
+
+2. Then open up a terminal/command line.
+
+3. Create a folder, 'cd' to the folder and copy your data file called 'nic_data.csv' to this folder.
+
+4. Run the docker command:
+
+    docker run -v $PWD:/work billbsing/nic_network
+
+5. The created chart will be called 'nic_charts.pdf'
+
+
+## or
+
+### Seting up to generate the report using python and the development files
 
 You now need to setup the local virtual environment. You will only need to do this part once.
 

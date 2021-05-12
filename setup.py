@@ -6,10 +6,10 @@
 import os
 from os.path import join
 
-from setuptools import (
-    setup,
-    find_packages
-)
+try:
+    from setuptools import setup, find_packages
+except ImportError:
+    from distutils.core import setup, find_packages
 
 with open('README.md') as readme_file:
     readme = readme_file.read()
@@ -38,7 +38,7 @@ setup(
         'Natural Language :: English',
         'Programming Language :: Python :: 3.6',
     ],
-    description="NIC Charts",
+    description="NIC Network Charts",
     extras_require={
         'test': [],
         'docs': [],
@@ -48,8 +48,8 @@ setup(
     license="Apache Software License 2.0",
     long_description=readme,
     long_description_content_type='text/markdown',
-    keywords='nic charts',
-    name='nic-charts',
+    keywords='nic network',
+    name='NICNetwork',
     packages=find_packages(),
     setup_requires=install_requirements,
     python_requires='>=3.6',

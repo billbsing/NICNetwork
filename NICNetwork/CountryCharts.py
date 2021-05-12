@@ -82,7 +82,8 @@ class CountryCharts:
         ax.set_xlabel('Number of NIC members')
         ax.set_ylabel('Country')
         ax.set_title('Number of NIC members per country')
-        ax.bar_label(barh)
+        if hasattr(ax, 'bar_label'):
+            ax.bar_label(barh)
 
 
     def draw_world_map(self, filename):

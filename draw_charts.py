@@ -2,6 +2,7 @@
 
 import argparse
 import cairosvg
+import logging
 import os
 import re
 
@@ -18,9 +19,13 @@ charts = {
 
 
 DEFAULT_FILENAME = 'nic_data.csv'
-DEFAULT_OUTPUT_PATH = 'charts'
+DEFAULT_PATH = ''
+DEFAULT_CHART_FOLDER = 'charts'
 DEFAULT_OUTPUT_FILENAME = 'nic_charts.pdf'
 DEFAULT_CHART_NAME = 'all'
+
+
+logger = logging.getLogger(__name__)
 
 def main():
 
@@ -33,8 +38,13 @@ def main():
     )
 
     parser.add_argument('-p', '--path',
-        default=DEFAULT_OUTPUT_PATH,
-        help=f'Path to build the charts in. Default: {DEFAULT_OUTPUT_PATH}'
+        default=DEFAULT_PATH,
+        help=f'Path to input data, build charts and output chart. Default: {DEFAULT_PATH}'
+    )
+
+    parser.add_argument('-c', '--charts',
+        default=DEFAULT_CHART_FOLDER,
+        help=f'Path to build the charts in. Default: {DEFAULT_CHART_FOLDER}'
     )
 
     parser.add_argument('-o', '--output',
@@ -49,13 +59,19 @@ def main():
     )
 
     args = parser.parse_args()
-    data_source = DataSource(args.filename)
 
-    output_path = args.path
-    if not os.path.exists(output_path):
+    output_path = os.path.join(args.path, args.charts)
+    if output_path and not os.path.exists(output_path):
         os.mkdir(output_path)
+
+    data_filename = os.path.join(args.path, args.filename)
+    logger.info(f'reading input file {data_filename}')
+    data_source = DataSource(data_filename)
+
+    output_filename = os.path.join(args.path, args.output)
+
     export_list = []
-    chart_name = args.chart_name.lower()
+    chart_name =args.chart_name.lower()
     if chart_name == 'country' or chart_name == 'all':
         print('drawing country charts')
         country_charts = CountryCharts(data_source)
@@ -122,8 +138,11 @@ def main():
             fp = open(pdf_input, 'rb')
             file_handles.append(fp)
             merger.append(fp)
-        with open(args.output, 'wb') as fp:
-            print(f'output chart to {args.output}')
+
+
+        logger.info(f'writing output to {output_filename}')
+        with open(output_filename, 'wb') as fp:
+            print(f'output chart to {output_filename}')
             merger.write(fp)
 
         for fp in file_handles:
